@@ -25,14 +25,14 @@ public class ProductService {
         return Optional.of(productRepository.save(product));
     }
 
-    //@Transactional
+    @Transactional
     public Optional<Product> editProduct(Optional<Product> existingProduct, Optional<Product> newProduct){
         if(existingProduct.isPresent()){
            return Optional.of(existingProduct.get().setNewProduct(newProduct.get()));
         }
         return Optional.empty();
     }
-
+    @Transactional
     public void deleteProduct(@NotNull @Valid Long id){
         productRepository.delete(id);
     }
