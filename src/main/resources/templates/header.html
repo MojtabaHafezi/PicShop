@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- Custom styles for carousel template -->
+    <link href="../static/css/carousel.css" rel="stylesheet" th:href="@{/css/carousel.css}">
+
+    <link rel="stylesheet" href="../static/css/demo.css" th:href="@{/css/demo.css}">
+    <link rel="stylesheet" href="../static/css/header-login-signup.css" th:href="@{/css/header-login-signup.css}">
+    <link href='http://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<body>
+
+<header class="header-login-signup">
+
+    <div class="header-limiter">
+
+        <h1><a href="/index.html" th:href="@{/shop}">Hafezi<span>Store</span></a></h1>
+
+        <nav>
+            <a href="/index.html" th:href="@{/shop}">Home</a>
+            <a href="/product/showAllProducts.html" th:href="@{/product/all}">Products</a>
+            <a href="#">Placeholder</a>
+        </nav>
+
+        <ul>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Sign up</a></li>
+        </ul>
+
+    </div>
+
+</header>
+</body>
+
+</html>

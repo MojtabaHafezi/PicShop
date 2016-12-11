@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/demo.css}" href="css/demo.css">
+    <link rel="stylesheet" th:href="@{/css/footer-basic-centered.css}" href="css/footer-basic-centered.css">
+</head>
+
+<footer class="footer-basic-centered" th:fragment="footer">
+
+    <p class="footer-links">
+        <a href="/index.html" th:href="@{/shop}">Home</a>
+        ·
+        <a href="/product/showAllProducts.html" th:href="@{/product/all}">Products</a>
+
+    </p>
+
+    <p class="footer-company-name">DDW project &copy; 2016 - Mojtaba Hafezi</p>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/js/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+</footer>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="header">
+
+</head>
+<body>
+<title>Edit a product</title>
+<div class="container-wrapper">
+    <div class="container">
+        <form class="form-horizontal" method="post" th:object="${product}">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend class="text-center">Edit a product</legend>
+
+                <!-- Name input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">Product name:</label>
+                    <div class="col-md-4">
+                        <input id="name" name="name" th:placeholder="${product.name}" th:field="*{name}" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- Producer input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="producer">Producer's name:</label>
+                    <div class="col-md-4">
+                        <input id="producer" name="producer" th:placeholder="${product.producer}" th:field="*{producer}" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- Description input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="description">Product description:</label>
+                    <div class="col-md-4">
+                        <input id="description" name="description" th:placeholder="${product.description}" th:field="*{description}" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- Price input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="price">Product price:</label>
+                    <div class="col-md-4">
+                        <input id="price" name="price" th:placeholder="${product.price}" th:field="*{price}" min="0" max="999999" pattern="[+]?([0-9]*\.[0-9]+|[0-9]+)" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- Stock input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="stock">Stock:</label>
+                    <div class="col-md-4">
+                        <input id="stock" name="stock" th:placeholder="${product.stock}" th:field="*{stock}" min="0" max="99999" pattern="^[0-9]*$" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- URL input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="stock">URL:</label>
+                    <div class="col-md-4">
+                        <input id="url" name="url" th:placeholder="${product.url}" th:field="*{url}" class="form-control input-md" type="text">
+                        <p style="color:red;" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" color="red">Fehlerhafte Eingabe</p>
+
+                    </div>
+                </div>
+
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="button1id">Double Button</label>
+                    <div class="col-md-8">
+                        <button id="button1id" name="button1id" class="btn btn-success">Save</button>
+                        <a th:href="@{/product/all}" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+        <footer th:include="footer"></footer>
+    </div>
+</div>
+</body>
+</html>
+
+

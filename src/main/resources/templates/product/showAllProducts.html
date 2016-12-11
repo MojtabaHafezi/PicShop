@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="header">
+
+</head>
+<body>
+<title>All Products</title>
+<div class="container-wrapper ">
+    <div class = "container">
+
+        <div class = "page-header"><h3 class="lead" class="text-center">Showing all available products right now:</h3> </div>
+        <!-- mit Daten Tabelle ausgeben -->
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr class="bg-success">
+                <th></th>
+                <th>Name</th>
+                <th>Producer</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody  th:unless="${#lists.isEmpty(products)}">
+            <tr th:each="product : ${products}">
+                <td><img alt="image" style="width:45px; height: 45px;" src="../../static/images/default.png" th:src="@{/images/{id}(id=${product.url})}"></td>
+                <td th:text="${product.name}">Offline</td>
+                <td th:text="${product.producer}">Offline</td>
+                <td th:text="${product.description}">Offline</td>
+                <td th:text="${product.price} + ' '+EUR"></td>
+                <td th:text="${product.stock}">Offline</td>
+                <td>
+                    <a class="glyphicon glyphicon-info-sign" th:href="@{detail/{id}(id=${product.id})}"></a>
+                    <a class="glyphicon glyphicon-pencil" th:href="@{edit/{id}(id=${product.id})}"></a>
+                    <a class="glyphicon glyphicon-trash" th:href="@{delete/{id}(id=${product.id})}"></a>
+
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <!--SHOULD ONLY BE VISIBLE TO ADMIN -->
+    <a th:href="@{add}" class="btn btn-primary">Add Product</a>
+
+    <footer th:include="footer"></footer>
+</div>
+</div><!-- /.container -->
+</body>
+</html>
