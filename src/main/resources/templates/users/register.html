@@ -9,16 +9,14 @@
 
         <div class="container">
             <form class="form-horizontal" method="post" th:object="${user}">
-
                 <fieldset>
-
                     <!-- Form Name -->
                     <legend class="text-center">Register</legend>
                     <!-- Email input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="email">E-Mail:</label>
                         <div class="col-md-4">
-                            <input id="email" name="email" placeholder="xyz@abc.de" th:field="*{email}" class="form-control input-md" type="text">
+                            <input id="email" name="email" placeholder="xyz@abc.de" th:field="*{email}" class="form-control input-md" type="email">
                             <span class="help-block">Please enter a valid e-mail address.</span>
                             <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" color="red">Invalid input</p>
                         </div>
@@ -49,15 +47,13 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="button1id"></label>
                         <div class="col-md-8">
-                            <button id="button1id" name="button1id" class="btn btn-success">Add</button>
+                            <button id="button1id" name="button1id" class="btn btn-success">Register</button>
                             <a th:href="@{/}" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
 
                 </fieldset>
             </form>
-
-
 <footer th:include="footer"></footer>
         </div>
     </div>

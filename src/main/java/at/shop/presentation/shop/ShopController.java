@@ -8,7 +8,6 @@ import at.shop.validation.UserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +35,7 @@ public class ShopController {
     private final UserFacade userFacade;
     private final UserValidator userValidator;
 
-    @InitBinder("command")
+    @InitBinder("user")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(userValidator);
     }
@@ -46,6 +45,7 @@ public class ShopController {
     public UserDetails getCurrentUser(Authentication authentication) {
         return (authentication == null) ? null : (UserDetails) authentication.getPrincipal();
     }
+
     //HOME
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
     public String index(
@@ -75,7 +75,8 @@ public class ShopController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView getUserCreatePage(ModelAndView mv) {
         mv.setViewName("users/register");
-        mv.getModelMap().addAttribute("user", CreateUserCommand.of("xyz@abc.de","","", Role.USER));
+        CreateUserCommand command = CreateUserCommand.of("xyz@abc.dep3", "newpass", "newpass", Role.USER);
+        mv.getModelMap().addAttribute("user", command );
         return mv;
     }
 
@@ -86,20 +87,13 @@ public class ShopController {
             mv.setViewName("users/register");
             return mv;
         }
-        try {
-            command.setRole(Role.USER);
-            UserView userView = userFacade.createUser(command);
-            if(userView.getId() > 0 ) {
-                mv.setViewName("redirect:/shop");
-            } else  {
-                mv.setViewName("users/register");
-                return mv;
-            }
-        } catch (DataIntegrityViolationException e) {
+        command.setRole(Role.USER);
+        UserView userView = userFacade.createUser(command);
+        if (userView.getId() > 0) {
+            mv.setViewName("redirect:/shop");
+        } else {
             mv.setViewName("users/register");
-            return mv;
         }
-        mv.setViewName("users/register");
         return mv;
     }
 
@@ -111,9 +105,9 @@ public class ShopController {
 
     //LOGOUT
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String getLogoutPage (HttpServletRequest request, HttpServletResponse response) {
+    public String getLogoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login";

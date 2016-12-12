@@ -18,7 +18,7 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.equals(UserFacade.class);
+        return aClass.equals(CreateUserCommand.class);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserValidator implements Validator {
         if (!command.getPassword().equals(command.getPasswordConfirm())) {
             errors.rejectValue("password", "password.match_error", "Passwords do not match!");
         }
-        if (command.getPassword().length() < 6 || command.getPassword().length() >= 50) {
+        if (command.getPassword().length() < 6 || command.getPassword().length() >= 150) {
             errors.rejectValue("password", "password.length_error", "Password must be between 6 and 50 characters");
         }
     }
@@ -47,7 +47,7 @@ public class UserValidator implements Validator {
         if (userFacade.getUser(command.getEmail()).getId() > 0) {
             errors.rejectValue("email", "email.exist_error", "This mail address is already in use.");
         }
-        if (command.getEmail().length() < 6 || command.getEmail().length() >= 50) {
+        if (command.getEmail().length() < 6 || command.getEmail().length() >= 150) {
             errors.rejectValue("email", "email.length_error", "The mail address must be between 6 and 50 characters");
         }
 

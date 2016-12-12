@@ -1,28 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="header">
+
 </head>
 <body>
-<form role="command" action="/login" method="post">
+<title>Registration</title>
+<div class="container-wrapper">
+        <form class="form-horizontal" method="post">
+            <fieldset>
+                <!-- Form Name -->
+                <legend class="text-center">Login</legend>
+                <!-- Email input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="email">E-Mail:</label>
+                    <div class="col-md-4">
+                        <input id="email" name="email" required class="form-control input-md" type="email">
+                        <span class="help-block">Please enter your e-mail address.</span>
+                    </div>
+                </div>
 
-    <div>
-        <label for="email">Email address</label>
-        <input type="email" name="email" id="email" required autofocus>
+                <!-- Password input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="password">Password:</label>
+                    <div class="col-md-4">
+                        <input id="password" name="password" placeholder=""  class="form-control input-md" type="password">
+                        <span class="help-block">Please enter your password.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                <div>
+                    <label class="col-md-4 control-label" for="remember-me">Remember me</label>
+                    <div class="col-md-4">
+                    <input type="checkbox" name="remember-me" id="remember-me">
+                    </div>
+                </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="button1id"></label>
+                    <div class="col-md-8">
+                        <button id="button1id" name="button1id" class="btn btn-success" type="success">Login</button>
+                        <a th:href="@{/}" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+        <footer th:include="footer"></footer>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-    </div>
-    <div>
-        <label for="remember-me">Remember me</label>
-        <input type="checkbox" name="remember-me" id="remember-me">
-    </div>
-    <button type="submit">Sign in</button>
-</form>
-
-
-
+</div>
 </body>
 </html>
