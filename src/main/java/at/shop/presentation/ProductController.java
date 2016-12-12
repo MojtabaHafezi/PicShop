@@ -8,13 +8,13 @@ import at.shop.facade.views.ProductView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 
@@ -26,8 +26,15 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Controller
+@ControllerAdvice
 @RequestMapping(value="/product")
 public class ProductController {
+
+    //with controlleradvice and this method every view can have access to the current user via "currentUser"
+    @ModelAttribute("currentUser")
+    public UserDetails getCurrentUser(Authentication authentication) {
+        return (authentication == null) ? null : (UserDetails) authentication.getPrincipal();
+    }
 
     private final ProductFacade facade;
 
@@ -44,16 +51,7 @@ public class ProductController {
         return _showProduct(id,mv,bindingResult);
     }
 
-    private ModelAndView _showProduct(@NotNull Long id, ModelAndView mv, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            mv.setViewName("errorView");
-            return mv;
-        }
-        ProductView productView = facade.getProduct(id);
-        mv.getModelMap().addAttribute("products", Arrays.asList(productView));
-        mv.setViewName("product/showAllProducts");
-        return mv;
-    }
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addProductWithForm(ModelAndView mv) {
         mv.setViewName("product/createForm");
@@ -62,6 +60,7 @@ public class ProductController {
         return mv;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public ModelAndView handleAddProductWithForm(@Valid @ModelAttribute("product") CreateProductCommand command,
                                                  BindingResult bindingResult, ModelAndView mv){
@@ -105,6 +104,7 @@ public class ProductController {
         return mv;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public ModelAndView showEditProduct(@PathVariable Long id, ModelAndView mv) {
         ProductView productView = facade.getProduct(id);
@@ -115,6 +115,7 @@ public class ProductController {
         return mv;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView handleEditProduct(@PathVariable Long id, @Valid @ModelAttribute("product") EditProductCommand command,
                                           BindingResult bindingResult, ModelAndView mv){
@@ -127,10 +128,22 @@ public class ProductController {
         return mv;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteProduct(@PathVariable Long id, ModelAndView mv) {
         facade.deleteProduct(DeleteProductCommand.of(id));
         mv.setViewName("redirect:/product/all");
+        return mv;
+    }
+
+    private ModelAndView _showProduct(@NotNull Long id, ModelAndView mv, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            mv.setViewName("errorView");
+            return mv;
+        }
+        ProductView productView = facade.getProduct(id);
+        mv.getModelMap().addAttribute("products", Arrays.asList(productView));
+        mv.setViewName("product/showAllProducts");
         return mv;
     }
 

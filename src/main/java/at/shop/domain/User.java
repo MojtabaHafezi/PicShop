@@ -18,13 +18,13 @@ public class User extends BaseDomain {
 
     @NonNull
     @NotNull
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 150)
     @Column(name = "email", unique = true)
     private String email;
 
     @NonNull
     @NotNull
-    @Size(min = 6, max = 50)
+    @Size(min = 6, max = 150)
     @Column(name = "password", unique = true)
     private String password;
 

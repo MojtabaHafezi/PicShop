@@ -37,8 +37,15 @@
         </nav>
 
         <ul>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Sign up</a></li>
+            <div th:switch="${currentUser}">
+                <p th:case="'admin'">User is an administrator</p>
+                <p th:case="#{currentUser.user.role}">User is a manager</p>
+                <p th:case="*">User is some other thing</p>
+            </div>
+            <li><a href="/users/login" th:href="@{/login}" th:unless="${#lists.isEmpty(currentUser)}">Login</a></li>
+            <li> <a th:href="@{/logout}" >Logout</a> </li>
+            <li><a href="/users/register" th:href="@{/register}">Sign up</a></li>
+
         </ul>
 
     </div>
