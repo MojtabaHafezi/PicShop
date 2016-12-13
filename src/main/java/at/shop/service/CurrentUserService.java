@@ -31,7 +31,7 @@ public class CurrentUserService implements UserDetailsService {
     //Does the current user have access to the user data?
     //admins in general and users can only change their own data
     public boolean hasAccess(CurrentUser user, Long id) {
-        return user != null && (user.getRole()== Role.ADMIN || user.getId().equals(id));
+        return user != null && (user.getRole()== Role.ROLE_ADMIN || user.getId().equals(id));
     }
 
 }

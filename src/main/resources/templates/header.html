@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head th:fragment="header">
 
@@ -34,9 +34,29 @@
             <a href="/index.html" th:href="@{/shop}">Home</a>
             <a href="/product/showAllProducts.html" th:href="@{/product/all}">Products</a>
             <a href="#">Placeholder</a>
+
+
         </nav>
 
+
         <ul>
+            <!--- Could use this too:<div sec:authorize="isAuthenticated()"> -->
+            <div th:unless="${#lists.isEmpty(currentUser)}">
+
+                <a href="users/edit.html"  th:text="'Welcome, ' + ${#authentication.name}" th:href="@{user/{id}(id = ${currentUser.id})}" ></a>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div class="glyphicon glyphicon-star"></div>
+                </th:block>
+                <th:block sec:authorize="hasRole('ROLE_USER')" >
+                    <div class="glyphicon glyphicon-user"></div>
+                </th:block>
+            </div>
+        </ul>
+
+
+
+        <ul>
+
             <li><a href="/users/login" th:href="@{/login}" th:if="${#lists.isEmpty(currentUser)}">Login</a></li>
             <li> <a th:href="@{/logout}" >Logout</a> </li>
             <li><a href="/users/register" th:href="@{/register}">Sign up</a></li>

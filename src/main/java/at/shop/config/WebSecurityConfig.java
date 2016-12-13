@@ -47,11 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe();
-        http.csrf().disable();
-        /* For later
+       // http.csrf().disable();
+
         http.csrf()
                 .csrfTokenRepository(csrfTokenRepository());
-                */
+
     }
 
     @Override

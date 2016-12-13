@@ -30,7 +30,7 @@ public class UserFacade {
 
     public UserView createUser(@NotNull @Valid CreateUserCommand command) {
         try {
-            User user = User.of("", "", Role.USER);
+            User user = User.of("", "", Role.ROLE_USER);
             user.setEmail(command.getEmail());
             user.setPassword(new BCryptPasswordEncoder().encode(command.getPassword()));
             user.setRole(command.getRole());
@@ -89,12 +89,12 @@ public class UserFacade {
                 .id(valid ? user.get().getId() : -1L)
                 .email(valid ? user.get().getEmail() : "unknown")
                 .password(valid ? user.get().getPassword() : "unknown")
-                .role(valid ? user.get().getRole() : Role.USER)
+                .role(valid ? user.get().getRole() : Role.ROLE_USER)
                 .build();
     }
 
     //@Returns an invalid view
     private UserView errorView() {
-        return UserView.of(-1L, "unknown", "unknown", Role.USER);
+        return UserView.of(-1L, "unknown", "unknown", Role.ROLE_USER);
     }
 }

@@ -34,10 +34,12 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (!command.getPassword().equals(command.getPasswordConfirm())) {
             errors.rejectValue("password", "password.match_error", "Passwords do not match!");
+        } else {
+            if (command.getPassword().length() < 6 || command.getPassword().length() >= 150) {
+                errors.rejectValue("password", "password.length_error", "Password must be between 6 and 50 characters");
+            }
         }
-        if (command.getPassword().length() < 6 || command.getPassword().length() >= 150) {
-            errors.rejectValue("password", "password.length_error", "Password must be between 6 and 50 characters");
-        }
+
     }
     //email validation: existing or wrong input
     private void validateEmail(Errors errors, CreateUserCommand command) {
@@ -46,10 +48,12 @@ public class UserValidator implements Validator {
         //if a userview is returned then the email is already in use
         if (userFacade.getUser(command.getEmail()).getId() > 0) {
             errors.rejectValue("email", "email.exist_error", "This mail address is already in use.");
+        } else {
+            if (command.getEmail().length() < 6 || command.getEmail().length() >= 150) {
+                errors.rejectValue("email", "email.length_error", "The mail address must be between 6 and 50 characters");
+            }
         }
-        if (command.getEmail().length() < 6 || command.getEmail().length() >= 150) {
-            errors.rejectValue("email", "email.length_error", "The mail address must be between 6 and 50 characters");
-        }
+
 
     }
 }

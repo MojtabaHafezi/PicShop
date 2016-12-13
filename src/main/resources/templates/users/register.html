@@ -9,6 +9,8 @@
 
         <div class="container">
             <form class="form-horizontal" method="post" th:object="${user}">
+                <input type="hidden"  th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
                 <fieldset>
                     <!-- Form Name -->
                     <legend class="text-center">Register</legend>
@@ -19,6 +21,7 @@
                             <input id="email" name="email" placeholder="xyz@abc.de" th:field="*{email}" class="form-control input-md" type="email">
                             <span class="help-block">Please enter a valid e-mail address.</span>
                             <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" color="red">Invalid input</p>
+
                         </div>
                     </div>
 
@@ -38,7 +41,6 @@
                         <div class="col-md-4">
                             <input id="passwordConfirm" name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
                             <span class="help-block">Reenter the password.</span>
-                            <p style="color:red;" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" color="red">Invalid input</p>
                         </div>
                     </div>
 

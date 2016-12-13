@@ -27,6 +27,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
         return user.getRole();
     }
 
+
     @Override
     public String toString() {
         return "CurrentUser{" +

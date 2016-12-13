@@ -1,5 +1,6 @@
 package at.shop.presentation;
 
+import at.shop.domain.CurrentUser;
 import at.shop.facade.ProductFacade;
 import at.shop.facade.commands.product.CreateProductCommand;
 import at.shop.facade.commands.product.DeleteProductCommand;
@@ -33,7 +34,7 @@ public class ProductController {
     //with controlleradvice and this method every view can have access to the current user via "currentUser"
     @ModelAttribute("currentUser")
     public UserDetails getCurrentUser(Authentication authentication) {
-        return (authentication == null) ? null : (UserDetails) authentication.getPrincipal();
+        return (authentication == null) ? null : (CurrentUser) authentication.getPrincipal();
     }
 
     private final ProductFacade facade;
@@ -51,7 +52,7 @@ public class ProductController {
         return _showProduct(id,mv,bindingResult);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addProductWithForm(ModelAndView mv) {
         mv.setViewName("product/createForm");
@@ -60,7 +61,7 @@ public class ProductController {
         return mv;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public ModelAndView handleAddProductWithForm(@Valid @ModelAttribute("product") CreateProductCommand command,
                                                  BindingResult bindingResult, ModelAndView mv){
@@ -104,7 +105,7 @@ public class ProductController {
         return mv;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/edit/{id}",method = RequestMethod.GET)
     public ModelAndView showEditProduct(@PathVariable Long id, ModelAndView mv) {
         ProductView productView = facade.getProduct(id);
@@ -115,7 +116,7 @@ public class ProductController {
         return mv;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView handleEditProduct(@PathVariable Long id, @Valid @ModelAttribute("product") EditProductCommand command,
                                           BindingResult bindingResult, ModelAndView mv){
@@ -128,7 +129,7 @@ public class ProductController {
         return mv;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteProduct(@PathVariable Long id, ModelAndView mv) {
         facade.deleteProduct(DeleteProductCommand.of(id));

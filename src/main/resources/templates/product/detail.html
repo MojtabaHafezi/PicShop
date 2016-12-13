@@ -23,9 +23,12 @@
                     <p><strong>Price: </strong><th:block  th:text="${product.price != null} ? ${product.price} + ' EUR' : 'error!'"></th:block></p>
                     <p><strong>In Stock: </strong> <th:block  th:text="${product.stock != null} ? ${product.stock} : 'error!'"></th:block></p>
                     <a class="btn btn-primary btn-lg" th:href="@{/product/all}" role="button"> Back</a>
+                    <a class="btn btn-primary btn-lg" role="button" href="/images/default.png" th:href="@{/images/{id}(id=${product.url != null} ? ${product.url} : 'default.png')}" download> Download </a>
                 </div>
                 <div class="col-md-4">
-                    <img src="../../static/images/default.png" th:src="@{/images/{id}(id=${product.url != null} ? ${product.url} : 'default.png')}" alt="image" style="width: 300px; height: 300px">
+                    <a href="/images/default.png" th:href="@{/images/{id}(id=${product.url != null} ? ${product.url} : 'default.png')}" download>
+                    <img  src="../../static/images/default.png" th:src="@{/images/{id}(id=${product.url != null} ? ${product.url} : 'default.png')}" alt="image" style="width: 300px; height: 300px">
+                    </a>
                 </div>
 
 

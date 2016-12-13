@@ -1,5 +1,6 @@
 package at.shop.presentation.shop;
 
+import at.shop.domain.CurrentUser;
 import at.shop.domain.Role;
 import at.shop.facade.UserFacade;
 import at.shop.facade.commands.user.CreateUserCommand;
@@ -35,6 +36,7 @@ public class ShopController {
     private final UserFacade userFacade;
     private final UserValidator userValidator;
 
+    //validation happens on the modelattribute "user"
     @InitBinder("user")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(userValidator);
@@ -43,7 +45,8 @@ public class ShopController {
     //with controlleradvice and this method every view can have access to the current user via "currentUser"
     @ModelAttribute("currentUser")
     public UserDetails getCurrentUser(Authentication authentication) {
-        return (authentication == null) ? null : (UserDetails) authentication.getPrincipal();
+        return (authentication == null) ? null : (CurrentUser) authentication.getPrincipal();
+
     }
 
     //HOME
@@ -59,7 +62,7 @@ public class ShopController {
     }
 
     //Only the admin has access to this page
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping("/users")
     public ModelAndView getUsersPage() {
         return new ModelAndView("users/showAll", "users", userFacade.getUsers());
@@ -73,21 +76,21 @@ public class ShopController {
 
     //REGISTRATION
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView getUserCreatePage(ModelAndView mv) {
+    public ModelAndView registerPage(ModelAndView mv) {
         mv.setViewName("users/register");
-        CreateUserCommand command = CreateUserCommand.of("xyz@abc.dep3", "newpass", "newpass", Role.USER);
+        CreateUserCommand command = CreateUserCommand.of("", "", "", Role.ROLE_USER);
         mv.getModelMap().addAttribute("user", command );
         return mv;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView handleUserCreateForm(
+    public ModelAndView handleRegisterPage(
             @Valid @ModelAttribute("user") CreateUserCommand command, BindingResult bindingResult, ModelAndView mv) {
         if (bindingResult.hasErrors()) {
             mv.setViewName("users/register");
             return mv;
         }
-        command.setRole(Role.USER);
+        command.setRole(Role.ROLE_USER);
         UserView userView = userFacade.createUser(command);
         if (userView.getId() > 0) {
             mv.setViewName("redirect:/shop");

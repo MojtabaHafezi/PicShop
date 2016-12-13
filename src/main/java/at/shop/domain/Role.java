@@ -1,10 +1,10 @@
 package at.shop.domain;
 
 public enum Role {
-    USER, ADMIN, EMPLOYEE;
+    ROLE_USER, ROLE_ADMIN, ROLE_EMPLOYEE;
 
     public static Role noNullReturn(String value) {
 
-        return (value == null) ? USER : Role.valueOf(value);
+        return (value == null) ? ROLE_USER : Role.valueOf(value);
     }
 }
