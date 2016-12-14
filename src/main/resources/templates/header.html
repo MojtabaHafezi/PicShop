@@ -28,12 +28,15 @@
 
     <div class="header-limiter">
 
-        <h1><a href="/index.html" th:href="@{/shop}">Hafezi<span>Store</span></a></h1>
+        <h1><a href="/index.html" th:href="@{/shop}">Hafezi<span>Platform</span></a></h1>
 
         <nav>
             <a href="/index.html" th:href="@{/shop}">Home</a>
             <a href="/product/showAllProducts.html" th:href="@{/product/all}">Products</a>
-            <a href="#">Placeholder</a>
+            <a href="users/edit.html" th:unless="${#lists.isEmpty(currentUser)}" th:href="@{/user/{id}(id = ${currentUser.id})}">Edit data</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/users} ">Users</a>
+
+
 
 
         </nav>
@@ -43,12 +46,15 @@
             <!--- Could use this too:<div sec:authorize="isAuthenticated()"> -->
             <div th:unless="${#lists.isEmpty(currentUser)}">
 
-                <a href="users/edit.html"  th:text="'Welcome, ' + ${#authentication.name}" th:href="@{user/{id}(id = ${currentUser.id})}" ></a>
+                <a  th:text="'Welcome, ' + ${#authentication.name}"  href="users/edit.html" th:href="@{/user/{id}(id = ${currentUser.id})}" ></a>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                     <div class="glyphicon glyphicon-star"></div>
                 </th:block>
                 <th:block sec:authorize="hasRole('ROLE_USER')" >
                     <div class="glyphicon glyphicon-user"></div>
+                </th:block>
+                <th:block sec:authorize="hasRole('ROLE_EMPLOYEE')" >
+                    <div class="glyphicon glyphicon-sunglasses"></div>
                 </th:block>
             </div>
         </ul>
@@ -58,8 +64,8 @@
         <ul>
 
             <li><a href="/users/login" th:href="@{/login}" th:if="${#lists.isEmpty(currentUser)}">Login</a></li>
-            <li> <a th:href="@{/logout}" >Logout</a> </li>
-            <li><a href="/users/register" th:href="@{/register}">Sign up</a></li>
+            <li> <a th:href="@{/logout}" th:value="logout" th:unless="${#lists.isEmpty(currentUser)}">Logout</a> </li>
+            <li><a href="/users/register" th:href="@{/register}" th:if="${#lists.isEmpty(currentUser)}">Sign up</a></li>
 
         </ul>
 

@@ -3,7 +3,6 @@ package at.shop.facade;
 import at.shop.domain.Product;
 import at.shop.facade.commands.product.CreateProductCommand;
 import at.shop.facade.commands.product.DeleteProductCommand;
-import at.shop.facade.commands.product.EditProductCommand;
 import at.shop.facade.views.ProductView;
 import at.shop.persistence.ProductRepository;
 import at.shop.service.ProductService;
@@ -37,7 +36,7 @@ public class ProductFacade {
         }
     }
 
-    public ProductView editProduct(@NotNull @Valid Long id, @NotNull @Valid EditProductCommand command) {
+    public ProductView editProduct(@NotNull @Valid Long id, @NotNull @Valid CreateProductCommand command) {
         try{
             Optional<Product> existingProduct = productRepository.findById(id);
             Optional<Product> optional = Optional.of(Product.of(command.getName(),command.getProducer()

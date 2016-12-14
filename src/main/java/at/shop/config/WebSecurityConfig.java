@@ -22,19 +22,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService; //CurrentUserService gets injected
 
     //login returns to the site you came from. defaultSuccessUrl can be chosen though
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/shop", "/product/all", "/login", "/register", "/logout").permitAll()
-                .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                //.defaultSuccessUrl("/shop",true)
+                .defaultSuccessUrl("/shop")
                 .failureUrl("/login?error")
                 .usernameParameter("email")
                 .permitAll()
@@ -43,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                 .logoutUrl("/logout")
                 .deleteCookies("remember-me")
-                .logoutSuccessUrl("/shop")
+               // .logoutSuccessUrl("/shop")
                 .permitAll()
                 .and()
                 .rememberMe();
@@ -54,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    //telling to use the Bcryptpasswordencoder to encode the plain text password given during login form
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth

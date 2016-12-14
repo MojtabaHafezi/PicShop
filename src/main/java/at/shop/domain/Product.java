@@ -22,19 +22,19 @@ public class Product extends BaseDomain {
 
     @NonNull
     @NotNull
-    @Size(min = 1, max = 150)
+    @Size(min = 3, max = 150)
     @Column(name = "name")
     private String name;
 
     @NonNull
     @NotNull
-    @Size(min = 1, max = 150)
+    @Size(min = 3, max = 150)
     @Column(name = "producer")
     private String producer;
 
     @NonNull
     @NotNull
-    @Size(min = 1, max = 150)
+    @Size(min = 3, max = 150)
     @Column(name = "description")
     private String description;
 
@@ -51,7 +51,7 @@ public class Product extends BaseDomain {
 
     @NonNull
     @NotNull
-    @Size(min = 1, max = 150)
+    @Size(min = 5, max = 150)
     @Column(name = "url")
     private String url;
 

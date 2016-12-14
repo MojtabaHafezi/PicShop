@@ -1,38 +1,34 @@
 package at.shop.domain;
+import at.shop.facade.views.UserView;
 import org.springframework.security.core.authority.AuthorityUtils;
 
 
 public class CurrentUser extends org.springframework.security.core.userdetails.User {
 
-    private User user;
+    private UserView userView;
 
-    public CurrentUser(User user) {
-        super(user.getEmail(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().toString()));
-        this.user = user;
+    public CurrentUser(UserView userView) {
+        super(userView.getEmail(), userView.getPassword(), AuthorityUtils.createAuthorityList(userView.getRole().toString()));
+        setUserView(userView);
     }
 
-    public User getUser() {
-        return user;
-    }
+
+    public UserView getUserView(){return  userView;}
 
     public String getEmail() {
-        return user.getEmail();
+        return userView.getEmail();
     }
 
     public Long getId() {
-        return user.getId();
+        return userView.getId();
     }
 
     public Role getRole() {
-        return user.getRole();
+        return userView.getRole();
     }
 
-
-    @Override
-    public String toString() {
-        return "CurrentUser{" +
-                "user=" + user +
-                "} " + super.toString();
+    private void setUserView(UserView userView) {
+            this.userView = userView;
     }
 
 }

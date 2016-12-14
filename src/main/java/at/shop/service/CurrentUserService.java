@@ -2,7 +2,6 @@ package at.shop.service;
 
 import at.shop.domain.CurrentUser;
 import at.shop.domain.Role;
-import at.shop.domain.User;
 import at.shop.facade.UserFacade;
 import at.shop.facade.views.UserView;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +19,29 @@ public class CurrentUserService implements UserDetailsService {
     @Override
     public CurrentUser loadUserByUsername(String email) throws UsernameNotFoundException {
         UserView user = userFacade.getUser(email);
-        if(user.getId()>0) {
-            return new CurrentUser(User.of(user.getEmail(), user.getPassword(), user.getRole()));
+        if (user.getId() > 0) {
+            return new CurrentUser(user);
         } else {
-            throw new UsernameNotFoundException(String.format("User with email %s was not found",email));
+            throw new UsernameNotFoundException(String.format("User with email %s was not found", email));
         }
 
     }
 
     //Does the current user have access to the user data?
     //admins in general and users can only change their own data
-    public boolean hasAccess(CurrentUser user, Long id) {
-        return user != null && (user.getRole()== Role.ROLE_ADMIN || user.getId().equals(id));
+    public boolean hasAccessEditUser(CurrentUser user, Long id) {
+        return user != null && (user.getRole() == Role.ROLE_ADMIN || user.getId().equals(id));
+    }
+
+    //Admin and employee
+    public boolean hasAccessForProducts(CurrentUser user) {
+        return user != null && (user.getRole() == Role.ROLE_ADMIN || user.getRole() == Role.ROLE_EMPLOYEE);
+    }
+
+    public boolean hasAccessForViewProducts(CurrentUser user) {
+        return user != null && (user.getRole() == Role.ROLE_ADMIN || user.getRole() == Role.ROLE_EMPLOYEE || user
+                .getRole() == Role.ROLE_USER);
+
     }
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
 <head th:include="header">
 
 </head>
@@ -20,6 +20,7 @@
                 <th>Price</th>
                 <th>Stock</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody  th:unless="${#lists.isEmpty(products)}">
@@ -31,17 +32,22 @@
                 <td th:text="${product.price} + ' '+EUR"></td>
                 <td th:text="${product.stock}">Offline</td>
                 <td>
+                    <div sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
                     <a class="glyphicon glyphicon-info-sign" th:href="@{detail/{id}(id=${product.id})}"></a>
-                    <a class="glyphicon glyphicon-pencil" th:href="@{edit/{id}(id=${product.id})}"></a>
-                    <a class="glyphicon glyphicon-trash" th:href="@{delete/{id}(id=${product.id})}"></a>
-
+                        </div>
+                </td>
+                <td>
+                    <div sec:authorize="hasAnyRole( 'ROLE_ADMIN', 'ROLE_EMPLOYEE')">
+                        <a class="glyphicon glyphicon-pencil" th:href="@{edit/{id}(id=${product.id})}"></a>
+                        <a class="glyphicon glyphicon-trash" th:href="@{delete/{id}(id=${product.id})}"></a>
+                    </div>
                 </td>
 
             </tr>
             </tbody>
         </table>
         <!--SHOULD ONLY BE VISIBLE TO ADMIN -->
-    <a th:href="@{add}" class="btn btn-primary">Add Product</a>
+    <a th:href="@{/product/add}" class="btn btn-primary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')">Add Product</a>
 
     <footer th:include="footer"></footer>
 </div>

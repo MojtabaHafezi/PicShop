@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="email">E-Mail:</label>
                     <div class="col-md-4">
-                        <input id="email" name="email" required class="form-control input-md" type="email">
+                        <input required id="email" name="email" required class="form-control input-md" type="email">
                         <span class="help-block">Please enter your e-mail address.</span>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="password">Password:</label>
                     <div class="col-md-4">
-                        <input id="password" name="password" placeholder=""  class="form-control input-md" type="password">
+                        <input required id="password" name="password" placeholder=""  class="form-control input-md" type="password">
                         <span class="help-block">Please enter your password..</span>
                         <div id="error" class="error"
                              th:if="${(param.containsKey('error'))}">

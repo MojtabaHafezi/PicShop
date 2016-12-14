@@ -33,7 +33,8 @@ public class UserFacade {
             User user = User.of("", "", Role.ROLE_USER);
             user.setEmail(command.getEmail());
             user.setPassword(new BCryptPasswordEncoder().encode(command.getPassword()));
-            user.setRole(command.getRole());
+            //the user has by default the role of user if an incorrect value is passed through
+            user.setRole( Role.noNullReturn(command.getRole().toString()));
             Optional<User> createdUser = userService.createUser(user);
             return createUserView(createdUser);
 
@@ -42,7 +43,6 @@ public class UserFacade {
             return errorView();
         }
     }
-
 
     public UserView editUser(@NotNull @Valid Long id, @NotNull @Valid CreateUserCommand command) {
         try {
@@ -77,7 +77,7 @@ public class UserFacade {
 
     private List<UserView> _mapUsers(List<User> users) {
         return users.stream()
-                .map(user -> UserView.builder().email(user.getEmail()).password(user.getPassword()).role(user.getRole())
+                .map(user -> UserView.builder().id(user.getId()).email(user.getEmail()).password(user.getPassword()).role(user.getRole())
                         .build()).collect(
                         Collectors.toList());
     }

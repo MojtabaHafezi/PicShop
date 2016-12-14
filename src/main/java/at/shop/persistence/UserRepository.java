@@ -12,21 +12,3 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findByEmail(String email);
 
 }
-
-
-/*
-
-@Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    Optional<Product> findById(Long id);
-    Optional<Product> findByName(String name);
-    List<Product> findByNameLike(String name);
-    List<Product> findByProducerLike(String producer);
-    List<Product> findByPriceLessThan(Double price);
-    List<Product> findByStockGreaterThan(Integer stock);
-
-
-}
-
- */

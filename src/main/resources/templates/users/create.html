@@ -4,23 +4,24 @@
 
 </head>
 <body>
-<title>Edit user</title>
+<title>Create user:</title>
 <div class="container-wrapper">
 
     <div class="container">
 
-        <form class="form-horizontal" method="post" th:object="${userEdit}">
+        <form class="form-horizontal" method="post" th:object="${user}">
             <input type="hidden"  th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
             <fieldset>
 
                 <!-- Form Name -->
-                <legend class="text-center">Edit user data</legend>
+                <legend class="text-center">Add an user</legend>
                 <!-- Email input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="email">Email:</label>
                     <div class="col-md-4">
                         <input required id="email" name="email" placeholder="Email" th:field="*{email}" class="form-control input-md" type="email">
+                        <span class="help-block">Please enter the email address.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" color="red">Invalid Input</p>
                     </div>
                 </div>
@@ -30,6 +31,7 @@
                     <label class="col-md-4 control-label" for="pw">Password:</label>
                     <div class="col-md-4">
                         <input required id="pw" name="pw" placeholder="" th:field="*{password}" class="form-control input-md" type="password">
+                        <span class="help-block">Please enter a password.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" color="red">Invalid Input</p>
                     </div>
                 </div>
@@ -39,6 +41,7 @@
                     <label class="col-md-4 control-label" for="passwordConfirm">Confirm Password:</label>
                     <div class="col-md-4">
                         <input required id="passwordConfirm" name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
+                        <span class="help-block">Reenter the password.</span>
                     </div>
                 </div>
 
@@ -48,6 +51,7 @@
                     <label class="col-md-4 control-label" for="role">Role:</label>
                     <div class="col-md-4">
                         <input required id="role" name="role" placeholder="ROLE_USER" th:field="*{role}" class="form-control input-md" type="text">
+                        <span class="help-block">Please enter a role.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('role')}" th:errors="*{role}" color="red">Invalid Input</p>
                     </div>
                 </div>
@@ -56,8 +60,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="button1id"></label>
                     <div class="col-md-8">
-                        <button id="button1id" name="button1id" class="btn btn-success">Edit User</button>
-                        <a th:href="@{/}" class="btn btn-danger">Cancel</a>
+                        <button id="button1id" name="button1id" class="btn btn-success">Create User</button>
+                        <a th:href="@{/users}" class="btn btn-danger">Cancel</a>
                     </div>
                 </div>
 

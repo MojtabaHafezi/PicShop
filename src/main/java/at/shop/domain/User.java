@@ -2,6 +2,8 @@ package at.shop.domain;
 
 import com.sun.istack.internal.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -20,6 +22,7 @@ public class User extends BaseDomain {
     @NotNull
     @Size(min = 6, max = 150)
     @Column(name = "email", unique = true)
+    @Email
     private String email;
 
     @NonNull
@@ -35,7 +38,7 @@ public class User extends BaseDomain {
     private Role role;
 
     public User editUser(User newUser){
-        this.setPassword(newUser.getPassword());
+        this.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         this.setRole(newUser.getRole());
         this.setEmail(newUser.getEmail());
         return this;

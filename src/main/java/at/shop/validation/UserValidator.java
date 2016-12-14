@@ -30,7 +30,6 @@ public class UserValidator implements Validator {
 
     //password validation: passwords match and wrong input
     private void validatePassword(Errors errors, CreateUserCommand command) {
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (!command.getPassword().equals(command.getPasswordConfirm())) {
             errors.rejectValue("password", "password.match_error", "Passwords do not match!");
@@ -39,21 +38,23 @@ public class UserValidator implements Validator {
                 errors.rejectValue("password", "password.length_error", "Password must be between 6 and 50 characters");
             }
         }
-
     }
     //email validation: existing or wrong input
     private void validateEmail(Errors errors, CreateUserCommand command) {
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
         //if a userview is returned then the email is already in use
         if (userFacade.getUser(command.getEmail()).getId() > 0) {
             errors.rejectValue("email", "email.exist_error", "This mail address is already in use.");
         } else {
             if (command.getEmail().length() < 6 || command.getEmail().length() >= 150) {
-                errors.rejectValue("email", "email.length_error", "The mail address must be between 6 and 50 characters");
+                errors.rejectValue("email", "email.length_error",
+                        "The mail address must be between 6 and 50 characters");
+            }
+            //REGEX - very simple
+            if (!command.getEmail().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")) {
+                errors.rejectValue("email", "email.style_error", "Please enter a valid e-mail address.");
             }
         }
-
-
     }
+
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -21,52 +22,38 @@ public class ProductValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-
-    }
-}
-
-/*
-@Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-
-    public boolean supports(Class<?> aClass) {
-        return aClass.equals(CreateUserCommand.class);
+    CreateProductCommand command = (CreateProductCommand) o;
+    validateProduct(errors,command);
     }
 
-    @Override
-    public void validate(Object o, Errors errors) {
-        CreateUserCommand command = (CreateUserCommand) o;
-        validateEmail(errors, command);
-        validatePassword(errors, command);
-    }
+    private void validateProduct(Errors errors, CreateProductCommand command) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name","NotEmpty", "Please enter a name.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"description","NotEmpty", "Please enter a description.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"producer","NotEmpty", "Please enter a producer.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"price","NotEmpty", "Please enter a price.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"stock","NotEmpty", "Please enter a stock.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"url","NotEmpty", "Please enter a url.");
 
-    //password validation: passwords match and wrong input
-    private void validatePassword(Errors errors, CreateUserCommand command) {
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (!command.getPassword().equals(command.getPasswordConfirm())) {
-            errors.rejectValue("password", "password.match_error", "Passwords do not match!");
-        } else {
-            if (command.getPassword().length() < 6 || command.getPassword().length() >= 150) {
-                errors.rejectValue("password", "password.length_error", "Password must be between 6 and 50 characters");
-            }
+        if(command.getName().length() < 5 || command.getName().length() > 150) {
+            errors.rejectValue("name","name.length_error","Length must be between 5 and 150 characters");
         }
+        if(command.getDescription().length() < 5 || command.getDescription().length() > 150) {
+            errors.rejectValue("description","description.length_error","Description must be between 5 and 150 characters");
+        }
+        if(command.getProducer().length() < 5 || command.getProducer().length() > 150) {
+            errors.rejectValue("producer","producer.length_error","producer must be between 5 and 150 characters");
+        }
+        if(command.getUrl().length() < 5 || command.getUrl().length() > 150) {
+            errors.rejectValue("url","url.length_error","url must be between 5 and 150 characters");
+        }
+        if(command.getPrice() < 0) {
+            errors.rejectValue("price","price.size_error","price cant be negative");
+        }
+        if(command.getStock() < 0 ){
+            errors.rejectValue("stock","stock.size_error","stock cant be negative");
 
-    }
-    //email validation: existing or wrong input
-    private void validateEmail(Errors errors, CreateUserCommand command) {
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        //if a userview is returned then the email is already in use
-        if (userFacade.getUser(command.getEmail()).getId() > 0) {
-            errors.rejectValue("email", "email.exist_error", "This mail address is already in use.");
-        } else {
-            if (command.getEmail().length() < 6 || command.getEmail().length() >= 150) {
-                errors.rejectValue("email", "email.length_error", "The mail address must be between 6 and 50 characters");
-            }
         }
 
 
     }
 }
-*/
