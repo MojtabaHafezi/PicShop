@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
 </head>
 <body>
-<h1>Page does not exist...</h1>
+<h1>Page does not exist or an error occured</h1>
+<a th:href="@{/shop}"><h2>HOME</h2></a>
 
 </body>
 </html>

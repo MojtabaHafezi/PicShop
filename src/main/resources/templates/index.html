@@ -1,11 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="header">
-
+  <link rel="stylesheet" href="../static/css/sprites.css" th:href="@{/css/sprites.css}" type="text/css">
 
 </head>
 
 <body>
-<title>Hafezi's Online Store</title>
+<title>Product Platform</title>
 <!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -81,6 +81,37 @@
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
+
+
+
+      <!-- additional content -->
+      <div class="container-fluid bg-3 text-center">
+        <h3>Sprite demo please?</h3>
+        <div class="row">
+          <div class="col-sm-3">
+            <p>Sprite ipsum..</p>
+            <div class='sprite part1'></div>
+          </div>
+          <div class="col-sm-3">
+            <p>Sprite ipsum..</p>
+            <div class='sprite part2'></div>
+          </div>
+          <div class="col-sm-3">
+            <p>Sprite ipsum..</p>
+            <div class='sprite part3'></div>
+          </div>
+          <div class="col-sm-3">
+            <p>Sprite ipsum..</p>
+            <div class='sprite part4'></div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- end of the content for sprite demo -->
 
     <footer th:include="footer"></footer>
 

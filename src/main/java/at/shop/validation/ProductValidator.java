@@ -46,11 +46,11 @@ public class ProductValidator implements Validator {
         if(command.getUrl().length() < 5 || command.getUrl().length() > 150) {
             errors.rejectValue("url","url.length_error","url must be between 5 and 150 characters");
         }
-        if(command.getPrice() < 0) {
-            errors.rejectValue("price","price.size_error","price cant be negative");
+        if(command.getPrice() < 0 || command.getPrice() > Double.MAX_VALUE) {
+            errors.rejectValue("price","price.size_error","Price must be neither negative nor too high");
         }
-        if(command.getStock() < 0 ){
-            errors.rejectValue("stock","stock.size_error","stock cant be negative");
+        if(command.getStock() < 0 || command.getStock() > Integer.MAX_VALUE){
+            errors.rejectValue("stock","stock.size_error","stock cant be negative or too big");
 
         }
 

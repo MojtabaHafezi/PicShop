@@ -24,8 +24,8 @@
                 <td th:text="${user.email}">Offline</td>
                 <td th:text="${user.role}">Offline</td>
                 <td>
-                    <a class="glyphicon glyphicon-pencil" th:href="@{user/{id}(id=${user.id})}"></a>
-                    <a class="glyphicon glyphicon-trash" th:href="@{user/delete/{id}(id=${user.id})}"></a>
+                    <a class="glyphicon glyphicon-pencil" th:href="@{/user/{id}(id=${user.id})}"></a>
+                    <a class="glyphicon glyphicon-trash" th:href="@{/user/delete/{id}(id=${user.id})}"></a>
                 </td>
 
             </tr>

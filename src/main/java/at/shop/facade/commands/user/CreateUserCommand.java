@@ -1,11 +1,12 @@
 package at.shop.facade.commands.user;
 
 import at.shop.domain.Role;
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor

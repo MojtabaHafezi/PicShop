@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:include="header">
 
 </head>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-
+                <th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
                 <!-- Role input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="role">Role:</label>
@@ -51,6 +51,7 @@
                         <p style="color:red;" th:if="${#fields.hasErrors('role')}" th:errors="*{role}" color="red">Invalid Input</p>
                     </div>
                 </div>
+                </th:block>
 
                 <!-- Button (Double) -->
                 <div class="form-group">

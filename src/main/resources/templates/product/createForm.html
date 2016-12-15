@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="price">Product price:</label>
                     <div class="col-md-4">
-                        <input required id="price" name="price" placeholder="10.00" th:field="*{price}" min="0" max="999999" pattern="[+]?([0-9]*\.[0-9]+|[0-9]+)" class="form-control input-md" type="text">
+                        <input required id="price" name="price" placeholder="10.00" th:field="*{price}" min="0" max="" pattern="[+]?([0-9]*\.[0-9]+|[0-9]+)" class="form-control input-md" type="text">
                         <span class="help-block">Enter the products price</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" color="red">Invalid Input</p>
                     </div>
@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="stock">Stock:</label>
                     <div class="col-md-4">
-                        <input required id="stock" name="stock" placeholder="100" th:field="*{stock}" min="0" max="99999" pattern="^[0-9]*$" class="form-control input-md" type="text">
+                        <input required id="stock" name="stock" placeholder="100" th:field="*{stock}" min="0" max="15" pattern="^[0-9]*$" class="form-control input-md" type="text">
                         <span class="help-block">Enter the number of available items.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" color="red">Invalid Input</p>
                     </div>

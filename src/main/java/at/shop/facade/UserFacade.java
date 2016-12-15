@@ -8,7 +8,6 @@ import at.shop.facade.commands.user.DeleteUserCommand;
 import at.shop.facade.views.UserView;
 import at.shop.persistence.UserRepository;
 import at.shop.service.UserService;
-import com.sun.istack.internal.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

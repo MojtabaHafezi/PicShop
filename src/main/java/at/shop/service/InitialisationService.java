@@ -39,7 +39,7 @@ public class InitialisationService {
         String hashedPassword = encoder.encode(password);
         User user1 = User.of("MHAFEZI@uclan",hashedPassword, Role.ROLE_ADMIN);
         hashedPassword = encoder.encode(password2);
-        User user2 = User.of("Hello@world", hashedPassword, Role.ROLE_USER);
+        User user2 = User.of("Hello@world.at", hashedPassword, Role.ROLE_EMPLOYEE);
 
 
 
