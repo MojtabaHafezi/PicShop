@@ -20,7 +20,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="email">Email:</label>
                     <div class="col-md-4">
-                        <input required id="email" name="email" placeholder="Email" th:field="*{email}" class="form-control input-md" type="email">
+                        <input required id="email" name="email" placeholder="Email" th:field="*{email}"
+                               pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" class="form-control input-md" type="email">
                         <span class="help-block">Please enter the email address.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" color="red">Invalid Input</p>
                     </div>
@@ -30,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="pw">Password:</label>
                     <div class="col-md-4">
-                        <input required id="pw" name="pw" placeholder="" th:field="*{password}" class="form-control input-md" type="password">
+                        <input required id="pw" name="pw"  pattern=".{6,10}"  placeholder="" th:field="*{password}" min="6" class="form-control input-md" type="password">
                         <span class="help-block">Please enter a password.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" color="red">Invalid Input</p>
                     </div>
@@ -40,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="passwordConfirm">Confirm Password:</label>
                     <div class="col-md-4">
-                        <input required id="passwordConfirm" name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
+                        <input required id="passwordConfirm"  pattern=".{6,10}"  name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
                         <span class="help-block">Reenter the password.</span>
                     </div>
                 </div>

@@ -89,7 +89,7 @@ public class ShopController {
         UserView userView = userFacade.getUser(id);
         mv.setViewName("users/edit");
         mv.getModelMap().addAttribute("userEdit", CreateUserCommand
-                .of(userView.getEmail(), "", "", userView.getRole())); //password wont be returned
+                .of(userView.getEmail(), "", "", userView.getRole()));
         return mv;
     }
 
@@ -118,19 +118,17 @@ public class ShopController {
         mv.setViewName("users/register");
 
         CreateUserCommand command = CreateUserCommand.of("", "", "", Role.ROLE_USER);
-        String result = "0";
         mv.getModelMap().addAttribute("user", command);
         return mv;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView handleRegisterPage(
-            @Valid @ModelAttribute("user") CreateUserCommand command,String result, BindingResult bindingResult, ModelAndView mv) {
+            @Valid @ModelAttribute("user") CreateUserCommand command,BindingResult bindingResult, ModelAndView mv) {
         if (bindingResult.hasErrors()) {
             mv.setViewName("users/register");
             return mv;
         }
-
         command.setRole(Role.ROLE_USER);
         UserView userView = userFacade.createUser(command);
         if (userView.getId() > 0) {

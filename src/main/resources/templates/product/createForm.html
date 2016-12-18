@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="name">Product name:</label>
                     <div class="col-md-4">
-                        <input required id="name" name="name" placeholder="Name" th:field="*{name}" class="form-control input-md" type="text">
+                        <input required id="name"  pattern=".{6,10}"  name="name" placeholder="Name" th:field="*{name}" class="form-control input-md" type="text">
                         <span class="help-block">Please enter the product name.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" color="red">Invalid Input</p>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="producer">Producer's name:</label>
                     <div class="col-md-4">
-                        <input required id="producer" name="producer" placeholder="Producer" th:field="*{producer}" class="form-control input-md" type="text">
+                        <input required id="producer"  pattern=".{6,10}"  name="producer" placeholder="Producer" th:field="*{producer}" class="form-control input-md" type="text">
                         <span class="help-block">Please enter the producer's name.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}" color="red">Invalid Input</p>
                     </div>
@@ -40,7 +40,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="description">Product description:</label>
                     <div class="col-md-4">
-                        <input required id="description" name="description" placeholder="Description" th:field="*{description}" class="form-control input-md" type="text">
+                        <input required id="description" name="description"  pattern=".{6,10}"
+                               placeholder="Description" th:field="*{description}" class="form-control input-md" type="text">
                         <span class="help-block">Please enter a description.</span>
                         <p style="color:red;" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" color="red">Invalid Input</p>
                     </div>

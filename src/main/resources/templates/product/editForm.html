@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="name">Product name:</label>
                     <div class="col-md-4">
-                        <input required id="name" name="name" th:placeholder="${product.name}" th:field="*{name}" class="form-control input-md" type="text">
+                        <input required id="name"  pattern=".{6,10}"  name="name" th:placeholder="${product.name}" th:field="*{name}" class="form-control input-md" type="text">
                         <p style="color:red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" color="red"></p>
 
                     </div>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="producer">Producer's name:</label>
                     <div class="col-md-4">
-                        <input required id="producer" name="producer" th:placeholder="${product.producer}" th:field="*{producer}" class="form-control input-md" type="text">
+                        <input required id="producer"  pattern=".{6,10}"  name="producer" th:placeholder="${product.producer}" th:field="*{producer}" class="form-control input-md" type="text">
                         <p style="color:red;" th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}" color="red">Invalid Input</p>
 
                     </div>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="description">Product description:</label>
                     <div class="col-md-4">
-                        <input required id="description" name="description" th:placeholder="${product.description}" th:field="*{description}" class="form-control input-md" type="text">
+                        <input required id="description"  pattern=".{6,10}"  name="description" th:placeholder="${product.description}" th:field="*{description}" class="form-control input-md" type="text">
                         <p style="color:red;" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" color="red">Invalid Input</p>
 
                     </div>
@@ -49,7 +49,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="price">Product price:</label>
                     <div class="col-md-4">
-                        <input required id="price" name="price" th:placeholder="${product.price}" th:field="*{price}" min="0" max="999999" pattern="[+]?([0-9]*\.[0-9]+|[0-9]+)" class="form-control input-md" type="text">
+                        <input required id="price" name="price" th:placeholder="${product.price}" th:field="*{price}"
+                               min="0" max="999999" pattern="[+]?([0-9]*\.[0-9]+|[0-9]+)" class="form-control input-md" type="text">
                         <p style="color:red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" color="red">Invalid Input</p>
 
                     </div>

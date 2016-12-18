@@ -29,11 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/shop", "/product/all", "/login", "/register", "/logout").permitAll()
+              //  .antMatchers("/users/**").hasAuthority("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/shop",true)
+                .defaultSuccessUrl("/shop", true)
                 .failureUrl("/login?error")
                 .usernameParameter("email")
                 .permitAll()

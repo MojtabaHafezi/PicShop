@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:include="header">
 
 </head>
@@ -14,11 +14,13 @@
                 <fieldset>
                     <!-- Form Name -->
                     <legend class="text-center">Register</legend>
+
                     <!-- Email input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="email">E-Mail:</label>
                         <div class="col-md-4">
-                            <input required id="email" name="email" placeholder="xyz@abc.de" th:field="*{email}" class="form-control input-md" type="email">
+                            <input required id="email" name="email" placeholder="" th:field="*{email}"
+                                   pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}" class="form-control input-md" type="email">
                             <span class="help-block">Please enter a valid e-mail address.</span>
                             <p style="color:red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" color="red">Invalid input</p>
 
@@ -29,7 +31,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="password">Password:</label>
                         <div class="col-md-4">
-                            <input required id="password" name="password" placeholder="" th:field="*{password}" class="form-control input-md" type="password">
+                            <input required id="password"  pattern=".{6,10}"  name="password" placeholder="" th:field="*{password}" class="form-control input-md" type="password">
                             <span class="help-block">Please enter a password with at least 6 characters.</span>
                             <p style="color:red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" color="red">Invalid input</p>
                         </div>
@@ -39,10 +41,15 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="passwordConfirm">Confirm Password:</label>
                         <div class="col-md-4">
-                            <input required id="passwordConfirm" name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
+                            <input required id="passwordConfirm"  pattern=".{6,10}"  name="passwordConfirm" placeholder="" th:field="*{passwordConfirm}" class="form-control input-md" type="password">
                             <span class="help-block">Reenter the password.</span>
                         </div>
                     </div>
+
+                        <!-- Role input-->
+
+                                <input required id="role" name="role"  th:value="${user.role}" th:field="*{role}" class="form-control input-md" type="hidden">
+
 
                     <!-- Button -->
                     <div class="form-group">

@@ -37,7 +37,7 @@ public class InitialisationService {
         String password2 = "simple";
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(password);
-        User user1 = User.of("MHAFEZI@uclan",hashedPassword, Role.ROLE_ADMIN);
+        User user1 = User.of("MHAFEZI@uclan.ac.uk",hashedPassword, Role.ROLE_ADMIN);
         hashedPassword = encoder.encode(password2);
         User user2 = User.of("Hello@world.at", hashedPassword, Role.ROLE_EMPLOYEE);
 

@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 @Entity
 public class User extends BaseDomain {
 
-
     @NonNull
     @NotNull
     @Size(min = 6, max = 150)
@@ -28,7 +27,7 @@ public class User extends BaseDomain {
     @NonNull
     @NotNull
     @Size(min = 6, max = 150)
-    @Column(name = "password", unique = true)
+    @Column(name = "password")
     private String password;
 
     @NonNull

@@ -13,7 +13,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
     }
 
 
-    public UserView getUserView(){return  userView;}
+    public UserView getUser(){return  userView;}
 
     public String getEmail() {
         return userView.getEmail();
