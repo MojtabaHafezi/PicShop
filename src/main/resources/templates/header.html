@@ -45,8 +45,8 @@
         <ul>
             <!--- Could use this too:<div sec:authorize="isAuthenticated()"> -->
             <div th:unless="${#lists.isEmpty(currentUser)}">
-
-                <a  th:text="'Welcome, ' + ${#authentication.name}"  href="users/edit.html" th:href="@{/user/{id}(id = ${currentUser.id})}" ></a>
+                <a  th:text="'Welcome, ' + ${#authentication.name}"  href="users/edit.html"
+                    th:href="@{/user/{id}(id = ${currentUser.id})}" ></a>
                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                     <div class="glyphicon glyphicon-star"></div>
                 </th:block>

@@ -48,7 +48,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="role">Role:</label>
                     <div class="col-md-4">
-                        <input required id="role" name="role" placeholder="ROLE_USER" th:field="*{role}" class="form-control input-md" type="text">
+                        <input required id="role" name="role" placeholder="ROLE_USER" th:field="*{role}"
+                               class="form-control input-md" type="text">
                         <p style="color:red;" th:if="${#fields.hasErrors('role')}" th:errors="*{role}" color="red">Invalid Input</p>
                     </div>
                 </div>
